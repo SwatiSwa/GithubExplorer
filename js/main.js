@@ -20,7 +20,7 @@ function onApplicationLoad(){
         }
     }
     else{
-        userContainer.innerHTML = '<img class="githubIcon" src="resources/githubIcon.gif" alt="Github loading" srcset="">';
+        userContainer.innerHTML = '<img class="img-responsive githubIcon" src="resources/githubIcon.gif" alt="Github loading">';
     }
     loadingGif.style.display = "none";
     userSection.style.opacity = "unset";
