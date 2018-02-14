@@ -95,6 +95,7 @@ function processUserResponse(response){
             }
         }
         assignCardEvent();
+        onClickClear();
     }
 }
 
