@@ -119,6 +119,7 @@ function onClickClear(){
     username.value="";
     username.focus();
 
+    //Adding addUser event on pressing enter in input button
     username.onkeydown = function(e){
         if(e.keyCode==13){
             onClickAddUser();

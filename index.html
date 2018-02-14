@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
     <script src="js/utilities.js"></script>
     <title>Github Developer's Search</title>
 </head>
@@ -27,13 +27,13 @@
             </section>
 		<!-- User search section-->
 		<section class="card-section">
-			<span style="display:flex;">
+			<span>
                         <input type="text" name="username" class="username-btn" id="username" title="Enter Username" placeholder="Enter Username">
-                        <button type="button" class="btn btn-primary" onclick="onClickResetSearch()">Reset Search</button>
                   </span>
-                  <span style="display: table;margin: auto;">
-                        <button type="button" id="submit-btn" class="btn btn-success" onclick="onClickAddUser()">Add</button>
-                        <button type="button" id="submit-btn" class="btn btn-danger" onclick="onClickClear()">Clear</button>
+                  <span id="btn-container">
+                        <button type="button" class="btn btn-success app-btn" onclick="onClickAddUser()">Add</button>
+                        <button type="button" class="btn btn-danger app-btn" onclick="onClickClear()">Clear</button>
+                        <button type="button" class="btn btn-primary app-btn" onclick="onClickResetSearch()">Reset Search</button>
                   </span>
                 
 			<div id="cardsContainer">
