@@ -14,7 +14,7 @@ function onRepoFollowersAppLoad(){
     var data = userList[userIndex];
     var userName = data.login;
 
-    document.getElementById('name').innerHTML = data.name;
+    document.getElementById('name').innerHTML = userName;
     document.getElementById('profileImg').src = data.avatar_url;
 
     checkExistingRepoStorage(userName, userId);
