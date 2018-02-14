@@ -1,6 +1,11 @@
+/* To Track loading of both repos and followers list*/
 var isRepoLoaded = false;
 var isFollowersLoaded = false;
 
+/**
+ * On load of application, take the userId passed while opening this page
+ * and get the repositories and followers list accordingly
+ */
 function onRepoFollowersAppLoad(){
     var userId = Number(location.href.split('?')[1]);
     var userList = JSON.parse(localStorage.getItem('users'));

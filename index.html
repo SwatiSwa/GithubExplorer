@@ -11,6 +11,7 @@
     <title>Github Developer's Search</title>
 </head>
 <body onload="onApplicationLoad()">
+      <!-- CLoad Mask-->
       <div id="loading" style="text-align:center">
             <h1>Loading</h1>
       </div>
@@ -24,18 +25,18 @@
 				</ul>
 			</navbar>
             </section>
-		<!-- Page search section-->
-		<section class="page-section">
+		<!-- User search section-->
+		<section class="card-section">
 			<span style="display:flex;">
                         <input type="text" name="username" class="username-btn" id="username" title="Enter Username" placeholder="Enter Username">
                         <button type="button" class="btn btn-primary" onclick="onClickResetSearch()">Reset Search</button>
                   </span>
                   <span style="display: table;margin: auto;">
-                        <button type="button" id="submit-btn" class="btn btn-success" onclick="onClickSubmit()">Add</button>
-                        <button type="button" id="submit-btn" class="btn btn-danger" onclick="onClickReset()">Reset</button>
+                        <button type="button" id="submit-btn" class="btn btn-success" onclick="onClickAddUser()">Add</button>
+                        <button type="button" id="submit-btn" class="btn btn-danger" onclick="onClickClear()">Clear</button>
                   </span>
                 
-			<div id="pagesContainer">
+			<div id="cardsContainer">
                   </div>
 		</section>
 	</div>

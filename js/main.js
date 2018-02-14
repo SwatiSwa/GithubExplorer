@@ -1,10 +1,13 @@
+/**
+ * On load of application, check the local storage for previously added users.If exist, create the cards.
+ */
 function onApplicationLoad(){
     console.log('Document is loaded fully');
 
-    var loadingGif = document.getElementById('loading');
-    var userSection = document.querySelector('section.page-section');
-    var addedUsers = localStorage.getItem('users');
-    var userContainer    = document.querySelector('#pagesContainer');
+    var loadingGif    = document.getElementById('loading');
+    var userSection   = document.querySelector('section.card-section');
+    var addedUsers    = localStorage.getItem('users');
+    var userContainer = document.querySelector('#cardsContainer');
 
 
     if(addedUsers){
@@ -22,20 +25,16 @@ function onApplicationLoad(){
     else{
         userContainer.innerHTML = '<img class="img-responsive githubIcon" src="resources/githubIcon.gif" alt="Github loading">';
     }
-    loadingGif.style.display = "none";
+    loadingGif.style.display  = "none";
     userSection.style.opacity = "unset";
     assignCardEvent();
-    onClickReset();
+    onClickClear();
 }
 
-function onPressEnter(e){
-
-}
-
-function onClickSubmit(){
-    var username = document.querySelector('#username').value;
-    var loadingGif = document.getElementById('loading');
-    var userSection = document.querySelector('section.page-section');
+function onClickAddUser(){
+    var username    = document.querySelector('#username').value;
+    var loadingGif  = document.getElementById('loading');
+    var userSection = document.querySelector('section.card-section');
 
     if(username){
         loadingGif.style.display = "block";
@@ -47,42 +46,11 @@ function onClickSubmit(){
         .then(response => {
             console.log('Success:', response);
 
-            loadingGif.style.display = "none";
+            loadingGif.style.display  = "none";
             userSection.style.opacity = "unset";
 
             if(response){
-                if(response.message == "Not Found"){
-                    alert("User Not Found : Please enter a valid username");
-                }
-                else{
-                    var userContainer = document.querySelector('#pagesContainer');
-                    var githubIcon = userContainer.querySelector('img.githubIcon');
-                    var newCardDiv = document.createElement('div');
-                    newCardDiv.className = "card";
-                    newCardDiv.innerHTML = createUserCard(response);
-    
-                    newCardDiv.setAttribute('id',response.id);
-    
-                    if(!localStorage.getItem('users')){
-                        userContainer.removeChild(githubIcon);
-                        userContainer.appendChild(newCardDiv);
-                        localStorage.setItem('users',JSON.stringify([response]));
-                    }
-                    else{
-                        var previousUsers = JSON.parse(localStorage.getItem('users'));
-                        var userIds = pluck(previousUsers,'id');
-    
-                        if(userIds.indexOf(response.id)>=0){
-                            alert('User is already added.');
-                        }
-                        else{
-                            userContainer.appendChild(newCardDiv);
-                            previousUsers.push(response);
-                            localStorage.setItem('users',JSON.stringify(previousUsers));
-                        }
-                    }
-                    assignCardEvent();
-                }
+                processUserResponse(response);
             }
             else{
                 alert('Unable to fetch response, Please try again');
@@ -91,6 +59,42 @@ function onClickSubmit(){
     }
     else{
         alert("Please enter a username!!!");
+    }
+}
+
+function processUserResponse(response){
+    if(response.message == "Not Found"){
+        alert("User Not Found : Please enter a valid username");
+    }
+    else{
+        var userContainer = document.querySelector('#cardsContainer');
+        var githubIcon    = userContainer.querySelector('img.githubIcon');
+        
+        var newCardDiv       = document.createElement('div');
+        newCardDiv.className = "card";
+        newCardDiv.innerHTML = createUserCard(response);
+
+        newCardDiv.setAttribute('id',response.id);
+
+        if(!localStorage.getItem('users')){
+            userContainer.removeChild(githubIcon);
+            userContainer.appendChild(newCardDiv);
+            localStorage.setItem('users',JSON.stringify([response]));
+        }
+        else{
+            var previousUsers = JSON.parse(localStorage.getItem('users'));
+            var userIds = pluck(previousUsers,'id');
+
+            if(userIds.indexOf(response.id)>=0){
+                alert('User is already added.');
+            }
+            else{
+                userContainer.appendChild(newCardDiv);
+                previousUsers.push(response);
+                localStorage.setItem('users',JSON.stringify(previousUsers));
+            }
+        }
+        assignCardEvent();
     }
 }
 
@@ -103,14 +107,13 @@ function assignCardEvent(){
             var profileLink = e.currentTarget.querySelector('a');
             if(profileLink != srcElement){
                 var userId = e.currentTarget.getAttribute('id');
-                window.open('./index2.html?'+userId,'_blank');
+                window.open('./userDetails.html?'+userId,'_blank');
             }
-            //window.postMessage(e.currentTarget.getAttribute('username'),'http://127.0.0.1:5500/index2.html');
         }
     }
 }
 
-function onClickReset(){
+function onClickClear(){
     var username = document.getElementById('username');
 
     username.value="";
@@ -118,7 +121,7 @@ function onClickReset(){
 
     username.onkeydown = function(e){
         if(e.keyCode==13){
-            onClickSubmit();
+            onClickAddUser();
         }
     }
 }
@@ -129,17 +132,29 @@ function onClickResetSearch(){
 }
 
 function createUserCard(data){
-    
-    return `
-        <div id="imgDiv">
-            <img src=`+data.avatar_url+`>
-        </div>
-        <div class="card-body">
-            <a href=`+data.html_url+` target="_blank">`+data.name+`</a>
-            <div>
-            <span class="label">Bio :</span>`+data.bio+`<br/>
-            <span class="label">Location :</span>`+data.location+`
+    return `<div id="imgDiv">
+                <img src=`+data.avatar_url+`>
             </div>
-        </div>
-    `;
+            <div class="card-body">
+                <a href=`+data.html_url+` target="_blank">`+data.login+`</a>
+                <div>
+                    <span class="label">Name :</span>`+data.name+`<br/>
+                    <span class="label">Company :</span>`+data.company+`<br/>
+                    <span class="label">Location :</span>`+data.location+`<br/>
+                    <span class="label">Email :</span>`+data.email+`<br/><hr/>
+                    <span class="label">Followers :</span>`+data.followers+`<br/>
+                    <span class="label">Following :</span>`+data.following+`<br/>
+                    <span class="label">Member Since :</span>`+formatDate(data.created_at)+`<br/>
+                    <span class="label">Public Repos :</span>`+data.public_repos+`<br/>
+                    <span class="label">Public Gists :</span>`+data.public_gists+`<br/>
+                </div>
+            </div>`;
+}
+
+function formatDate(date){
+    var isoFormat = new Date(date);
+    var onlyDate = isoFormat.toDateString().substring(4);
+
+    //Replace space with dash(-)
+    return onlyDate.replace(/ /g,"-");
 }

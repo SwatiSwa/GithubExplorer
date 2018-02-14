@@ -91,8 +91,8 @@ h1 {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 8px 16px 0 rgba(227, 25, 25, 0.2);
     transition: 0.3s;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 380px;
     margin: 12px;
     float: left;
     background-color: #fff;
@@ -172,14 +172,14 @@ input[type=search]:focus {
     display: none;
 }
 
-.pagesContainer{
+.cardsContainer{
     display: -webkit-flex;
     display: flex;
     width: 100%;
     height: 100%;
 }
 
-.page-section {
+.card-section {
     opacity: 0.4;
 }
 
@@ -191,7 +191,7 @@ input[type=search]:focus {
 .repos {
     height : 100%;
     margin-right: 10px;
-    border-right: 2px solid rgba(0, 0, 0, 0.281);    
+    border-right: 2px solid grey;    
 }
 
 .followers {
@@ -202,7 +202,7 @@ input[type=search]:focus {
 hr.separator {
     margin-top: 20px;
     margin-bottom: 20px;
-    border-top: 2px solid #2420203b;
+    border-top: 2px solid grey;
 }
 
 h1 {
