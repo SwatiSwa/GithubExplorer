@@ -99,11 +99,13 @@ function assignCardEvent(){
 
     for(var i=0;i<userCards.length;i++){
         userCards[i].onclick=function(e){
-            var userId = e.currentTarget.getAttribute('id');
-            window.open('./index2.html?'+userId,'_blank');
-
+            var srcElement = e.srcElement;
+            var profileLink = e.currentTarget.querySelector('a');
+            if(profileLink != srcElement){
+                var userId = e.currentTarget.getAttribute('id');
+                window.open('./index2.html?'+userId,'_blank');
+            }
             //window.postMessage(e.currentTarget.getAttribute('username'),'http://127.0.0.1:5500/index2.html');
-            
         }
     }
 }

@@ -127,6 +127,12 @@ h1 {
     justify-content: center;
 }
 
+.card-body a:hover {
+    color: red;
+    transform: scale(1.4);
+}
+
+
 .card-body .label {
     font-size: small;
     color: rgb(41, 15, 15);
