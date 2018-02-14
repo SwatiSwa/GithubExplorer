@@ -139,9 +139,9 @@ function createUserCard(data){
                 <a href=`+data.html_url+` target="_blank">`+data.login+`</a>
                 <div>
                     <span class="label">Name :</span>`+data.name+`<br/>
-                    <span class="label">Company :</span>`+data.company+`<br/>
-                    <span class="label">Location :</span>`+data.location+`<br/>
-                    <span class="label">Email :</span>`+data.email+`<br/><hr/>
+                    <span class="label">Company :</span>`+(data.company?data.company:'-')+`<br/>
+                    <span class="label">Location :</span>`+(data.location?data.location:'-')+`<br/>
+                    <span class="label">Email :</span>`+(data.email?data.email:'-')+`<br/><hr/>
                     <span class="label">Followers :</span>`+data.followers+`<br/>
                     <span class="label">Following :</span>`+data.following+`<br/>
                     <span class="label">Member Since :</span>`+formatDate(data.created_at)+`<br/>
